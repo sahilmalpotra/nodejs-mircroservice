@@ -1,0 +1,67 @@
+# Staging values for hello-k8s chart
+
+# App-specific
+greeting: "Hello Staging!"
+replicaCount: 2
+
+# Container image
+image:
+  repository: kubesahilmalpotra/hello-k8s
+  tag: "v2"
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+# Chart name overrides (optional)
+nameOverride: ""
+fullnameOverride: ""
+
+# Service settings - targetPort should match the container PORT (app listens on 3000)
+service:
+  type: ClusterIP
+  port: 3000
+  targetPort: 3000
+
+# ServiceAccount configuration
+serviceAccount:
+  create: true
+  name: "hello-staging-hello-k8s"
+  automount: true
+  annotations: {}
+
+# Ingress (disable for staging by default)
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+
+# HTTPRoute (Gateway API) - disabled by default
+httpRoute:
+  enabled: false
+  hosts: []
+  rules: []
+
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+# Resource requests/limits
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+# Node scheduling
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Extra environment variables (if chart supports)
+extraEnv: []
